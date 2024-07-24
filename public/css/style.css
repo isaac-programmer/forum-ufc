@@ -1,3 +1,69 @@
+:root {
+    --border-color: #D9D9D9;
+    --blue-primary: #1C3A84;
+    --blue-light-text: #0000FF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
 h1 {
     color: red;
+}
+
+/* Card - Perguntas */
+.container {
+    width: 80%;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+}
+
+.container .header {
+    color: var(--blue-primary);
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.container .content {
+    color: #000000;
+    margin-bottom: 20px;
+}
+
+.container .category {
+    display: inline-block;
+    text-align: center;
+
+    color: white;
+    width: 81px;
+    padding: 5px 20px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 12.5px;
+    text-decoration: none;
+    background-color: var(--blue-primary);
+}
+
+.container a.comments {
+    float: right;
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.container a.comments:hover {
+    float: right;
+    text-decoration: underline;
+    color: var(--blue-light-text);
 }
