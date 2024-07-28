@@ -39,6 +39,7 @@ h1 {
 .container .content {
     color: #000000;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .container .category {
