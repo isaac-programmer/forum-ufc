@@ -10,53 +10,37 @@
 </head>
 
 <body>
-    <header>
-        <h1>Bem-vindo ao Guia de Perguntas</h1>
-    </header>
     <main>
-        <%- include('partials/dialogs/perguntas') %>
-        <h2>Minha Lista de Perguntas</h2>
-
-        <menu>
-            <section class="question-card">
-                <div class="header">O que é TCC?</div>
-                <p class="content">
-                    Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo
-                    utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os
-                    embaralhou para fazer um livro de modelos de tipos.
-                </p>
-                <span class="category">TCC</span>
-                <a href="#" class="comments">0 Comentários</a>
-            </section>
-        </menu>
-
-        <!-- <h2>Minha Lista de Perguntas</h2>
-
-        <p>Nome: <%= nome %>
-        </p>
-        <p>Disciplina: <%= disciplina %>
-        </p>
-        <p>Empresa: <%= empresa %>
-        </p>
-        <p>Alunos: <%= alunos %>
-        </p>
-
-        <% if(msg==true) { %>
-            <h3>Isso é uma mensagem de erro!</h3>
-            <%}%>
-
-                <% produtos.forEach(function(produto) {%>
-                    <%= produto.nome %>
-                        <%= produto.preco %>
-                            <%})%>
-
-                                <ul>
-                                    <li>Item 1</li>
-                                    <li>Item 2</li>
-                                    <li>Item 3</li>
-                                </ul> -->
-
+        <%- include('partials/dialogs/pergunta.ejs') %>
+            <menu>
+                <section class="card-pergunta">
+                    <div class="titulo-pergunta">O que é TCC?</div>
+                    <p class="conteudo">
+                        Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem
+                        sendo
+                        utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os
+                        embaralhou para fazer um livro de modelos de tipos.
+                    </p>
+                    <span class="categoria">TCC</span>
+                    <a href="#" class="comentarios">0 Comentários</a>
+                </section>
+            </menu>
     </main>
 </body>
+<script>
+    (function () {
+        var cardPergunta = document.querySelector(".card-pergunta");
+        var botaoCancelar = document.getElementById("fechar");
+        var dialogPergunta = document.getElementById("dialogPergunta");
+
+        cardPergunta.addEventListener("click", function () {
+            dialogPergunta.showModal();
+        });
+
+        botaoCancelar.addEventListener("click", function () {
+            dialogPergunta.close();
+        });
+    })();
+</script>
 
 </html>

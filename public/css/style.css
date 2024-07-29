@@ -2,6 +2,10 @@
     --border-color: #D9D9D9;
     --blue-primary: #1C3A84;
     --blue-light-text: #0000FF;
+    --blue-button: #214CCE;
+    --white: #FFFFFF;
+    --black: #000000;
+
 }
 
 * {
@@ -20,33 +24,33 @@ h1 {
 }
 
 /* Card - Perguntas */
-.question-card {
+.card-pergunta {
     width: 80%;
     padding: 20px;
     margin: 20px auto;
     border-radius: 10px;
-    background-color: #fff;
+    background-color: var(--white);
     border: 1px solid var(--border-color);
 }
 
-.question-card .header {
+.card-pergunta .titulo-pergunta {
     color: var(--blue-primary);
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-.question-card .content {
-    color: #000000;
+.card-pergunta .conteudo {
+    color: var(--black);
     margin-bottom: 20px;
     width: 100%;
 }
 
-.question-card .category {
+.card-pergunta .categoria {
     display: inline-block;
     text-align: center;
 
-    color: white;
+    color: var(--white);
     width: 81px;
     padding: 5px 20px;
     font-size: 12px;
@@ -56,15 +60,79 @@ h1 {
     background-color: var(--blue-primary);
 }
 
-.question-card a.comments {
+.card-pergunta a.comentarios {
     float: right;
     font-size: 14px;
-    color: #000000;
+    color: var(--black);
     text-decoration: none;
 }
 
-.question-card a.comments:hover {
+.card-pergunta a.comentarios:hover {
     float: right;
     text-decoration: underline;
     color: var(--blue-light-text);
+}
+
+/* Dialog */
+dialog {
+    margin: auto;
+    border: none;
+    border-radius: 10px;
+    width: 70%;
+    padding: 40px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Dialog - Pergunta */
+#dialogPergunta {
+    max-height: 632px;
+}
+
+#dialogPergunta section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#dialogPergunta section header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+#dialogPergunta section header h1 {
+    color: var(--blue-primary);
+}
+
+#dialogPergunta section header #fechar {
+    cursor: pointer;
+    font-size: 24px;
+    border: none;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+}
+
+#dialogPergunta section .comentario {
+    font-size: 14px;
+}
+
+#dialogPergunta section footer {
+    display: flex; 
+    justify-content: flex-start;
+}
+
+#dialogPergunta section footer #adicionarResposta {
+    cursor: pointer;
+    width: 178px;
+    height: 37px;
+    padding: 5px;
+    border: none;
+    font-size: 14px;
+    border-radius: 8px;
+    color: var(--white);
+    background-color: var(--blue-button);
 }
