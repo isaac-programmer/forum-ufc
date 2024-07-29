@@ -20,7 +20,7 @@ h1 {
 }
 
 /* Card - Perguntas */
-.container {
+.question-card {
     width: 80%;
     padding: 20px;
     margin: 20px auto;
@@ -29,20 +29,20 @@ h1 {
     border: 1px solid var(--border-color);
 }
 
-.container .header {
+.question-card .header {
     color: var(--blue-primary);
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-.container .content {
+.question-card .content {
     color: #000000;
     margin-bottom: 20px;
     width: 100%;
 }
 
-.container .category {
+.question-card .category {
     display: inline-block;
     text-align: center;
 
@@ -56,14 +56,14 @@ h1 {
     background-color: var(--blue-primary);
 }
 
-.container a.comments {
+.question-card a.comments {
     float: right;
     font-size: 14px;
     color: #000000;
     text-decoration: none;
 }
 
-.container a.comments:hover {
+.question-card a.comments:hover {
     float: right;
     text-decoration: underline;
     color: var(--blue-light-text);
