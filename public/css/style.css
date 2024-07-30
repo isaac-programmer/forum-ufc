@@ -25,6 +25,7 @@ h1 {
 
 /* Card - Perguntas */
 .card-pergunta {
+    cursor: pointer;
     width: 80%;
     padding: 20px;
     margin: 20px auto;
@@ -111,6 +112,7 @@ dialog::backdrop {
     cursor: pointer;
     font-size: 24px;
     border: none;
+    outline: none;
     width: 24px;
     height: 24px;
     background-color: transparent;
