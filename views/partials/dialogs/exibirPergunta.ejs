@@ -1,0 +1,96 @@
+<dialog id="exibirPergunta">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Responder a pergunta</h3>
+            <button class="close-buttons" id="closeModalButtonResposta">&times;</button>
+        </div>
+        <div class="user-infor">
+            <img src="/assets/user.svg" width="50" height="60">
+            <div>
+                <p class="user-nome">Thiago Iashiley</p>
+                <p class="user-curso">Engenharia de computaçao</p>
+            </div>
+        </div>
+        <form class="form-FazerPergunta" method="post" action="/rotaResposta">
+            <div class="box">
+                <div class="form-infor">
+                    <textarea class="campo-resposta" name="descricao" placeholder="Descrição(opcional)"></textarea>
+                </div>
+            </div>
+            <div class="buttons-finais">
+                <button type="submit" class="close-buttons button-publicar">Publicar resposta</button>
+                <button type="button" class="close-buttons button-cancelar">Cancelar</button>
+            </div>
+        </form>
+
+    </div>
+</dialog>
+
+<dialog id="dialogPergunta">
+    <section id="content">
+        <header>
+            <h1>Quem tem direito a isenção do RU?</h1>
+            <button id="fechar">X</button>
+        </header>
+        <section id="rank-votos">
+            <select name="rank_voto">
+                <option value="-">Escolha uma opção</option>
+                <option value="DESC">Mais votados</option>
+                <option value="ASC">Menos votados</option>
+            </select>
+        </section>
+        <section class="respostas">
+            <div class="resposta-container">
+                <div class="header">
+                    <img src="/assets/user.svg" width="50" height="60">
+                    <div>
+                        <p class="user-nome">Thiago Iashiley</p>
+                        <p class="user-curso">Engenharia de Computação</p>
+                    </div>
+                </div>
+                <p class="resposta">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi orci, faucibus sit amet turpis
+                    porta, dapibus luctus enim. Sed sit amet molestie sapien, et dignissim dui. Vestibulum egestas sit amet
+                    ante a fermentum. Donec vitae lobortis quam.
+                </p>
+                <div class="votos">
+                    <div class="likes">
+                        <img src="/assets/like.svg" width="19" height="19">
+                        <span class="numero-likes">0</span>
+                    </div>
+                    <div class="deslikes">
+                        <img src="/assets/deslike.svg" width="19" height="19">
+                        <span class="numero-deslikes">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="resposta-container">
+                <div class="header">
+                    <img src="/assets/user.svg" width="50" height="60">
+                    <div>
+                        <p class="user-nome">Thiago Iashiley</p>
+                        <p class="user-curso">Engenharia de Computação</p>
+                    </div>
+                </div>
+                <p class="resposta">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisi orci, faucibus sit amet turpis
+                    porta, dapibus luctus enim. Sed sit amet molestie sapien, et dignissim dui. Vestibulum egestas sit amet
+                    ante a fermentum. Donec vitae lobortis quam.
+                </p>
+                <div class="votos">
+                    <div class="likes">
+                        <img src="/assets/like.svg" width="19" height="19">
+                        <span class="numero-likes">0</span>
+                    </div>
+                    <div class="deslikes">
+                        <img src="/assets/deslike.svg" width="19" height="19">
+                        <span class="numero-deslikes">0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <button id="adicionarResposta">Adicionar resposta</button>
+        </footer>
+    </section>
+</dialog>

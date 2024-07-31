@@ -5,7 +5,6 @@
     --blue-button: #214CCE;
     --white: #FFFFFF;
     --black: #000000;
-
 }
 
 * {
@@ -74,7 +73,7 @@ h1 {
     color: var(--blue-light-text);
 }
 
-/* Dialog */
+/* Dialog - Geral */
 dialog {
     margin: auto;
     border: none;
@@ -92,23 +91,23 @@ dialog::backdrop {
     max-height: 632px;
 }
 
-#dialogPergunta section {
+#dialogPergunta #content {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 40px;
 }
 
-#dialogPergunta section header {
-    display: flex; 
-    justify-content: space-between; 
+#dialogPergunta #content header {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-#dialogPergunta section header h1 {
+#dialogPergunta #content header h1 {
     color: var(--blue-primary);
 }
 
-#dialogPergunta section header #fechar {
+#dialogPergunta #content header #fechar {
     cursor: pointer;
     font-size: 24px;
     border: none;
@@ -118,16 +117,75 @@ dialog::backdrop {
     background-color: transparent;
 }
 
-#dialogPergunta section .comentario {
-    font-size: 14px;
+#dialogPergunta #content #rank-votos select {
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #222222;
 }
 
-#dialogPergunta section footer {
-    display: flex; 
+#dialogPergunta #content .respostas {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#dialogPergunta #content .resposta-container {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#dialogPergunta #content .resposta-container .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+#dialogPergunta #content .resposta-container .header .user-nome {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#dialogPergunta #content .resposta-container .header .user-curso {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+#dialogPergunta #content .resposta-container .resposta {
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 55px;
+}
+
+#dialogPergunta #content .resposta-container .votos {
+    margin-top: 12px;
+    padding-left: 55px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+#dialogPergunta .resposta-container .votos .likes,
+#dialogPergunta .resposta-container .votos .deslikes {
+    display: flex;
+    flex-direction: row;
+    align-items: fe;
+    gap: 5px;
+}
+
+#dialogPergunta .resposta-container .votos img {
+    cursor: pointer;
+}
+
+#dialogPergunta #content footer {
+    display: flex;
     justify-content: flex-start;
 }
 
-#dialogPergunta section footer #adicionarResposta {
+#dialogPergunta #content footer #adicionarResposta {
     cursor: pointer;
     width: 178px;
     height: 37px;

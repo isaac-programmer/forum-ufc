@@ -10,7 +10,6 @@ dialog::backdrop {
    overflow: hidden;
 }
 
-
 #PerguntaModal .modal-header, #RespostaModal  .modal-header{
     display: flex;
     align-items: center;
