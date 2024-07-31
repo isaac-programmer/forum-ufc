@@ -101,17 +101,32 @@ router.post("/votar", async (req, res) => {
 router.get("/perguntas", async (req, res) => {
   const { categoria, ordem } = req.query;
 
+  // Configurações para a consulta
+  let whereClause = {};
+  let orderClause = [];
+
+  // Adiciona condição ao whereClause se categoria for fornecida
+  if (categoria) {
+    whereClause.categoria = categoria;
+  }
+
+  // Adiciona condição ao orderClause se ordem for fornecida
+  if (ordem) {
+    orderClause = [['createdAt', ordem]];
+  }
+
   try {
-    // Buscar perguntas pela categoria com suas respostas
+    // Buscar perguntas com condições dinâmicas
     const perguntas = await Pergunta.findAll({
-      where: { categoria },
+      where: Object.keys(whereClause).length ? whereClause : undefined, // Se não houver condições, omitir where
       include: [
         {
           model: Resposta,
           as: 'respostas',
-          order: [['likes', ordem]]
+          order: [['likes', 'DESC']] // Ordenar respostas por "likes" em ordem descendente
         }
-      ]
+      ],
+      order: orderClause.length ? orderClause : undefined // Se não houver ordem, omitir order
     });
 
     res.json(perguntas);
