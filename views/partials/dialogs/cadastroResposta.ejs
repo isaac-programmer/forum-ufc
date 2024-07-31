@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guia de Perguntas</title>
-    <link rel="stylesheet" href="/css/styleCadastroPergunta.css">
-</head>
-<body>
+
     <div class="container-FazerPergunta">
         <!-- <button id="openModalButtonResposta">Responder</button> -->
         <dialog id="RespostaModal">
@@ -22,10 +14,10 @@
                         <p class="user-curso">Engenharia de computaçao</p>    
                     </div>
                 </div>
-                <form class="form-Responder" method="post" action="/rotaResposta">
+                <form class="form-Responder" id="formPergunta" method="post" action="/rotaResposta">
                     <div class="box">
                       
-                        <textarea class="campo-resposta"name="resposta" placeholder="Descrição(opcional)"></textarea>  
+                        <textarea class="campo-resposta obrigatorio" name="resposta" placeholder="Descrição(opcional)" required></textarea>  
                        
                     </div>
                     <div class="buttons-finais">
@@ -37,5 +29,3 @@
             </section>
         </dialog>
     </div>
-</body>
-</html>

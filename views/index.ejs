@@ -8,6 +8,10 @@
 
     <link rel="stylesheet" href="/css/stylePergunta.css">
     <link rel="stylesheet" href="/css/styleNavBar.css">
+    <link rel="stylesheet" href="/css/styleLogin.css">
+    <link rel="stylesheet" href="/css/styleCadastroPergunta.css">
+
+
 </head>
 
 <body>
@@ -53,16 +57,20 @@
     // const openModalButtonLogin = document.getElementById('openModalButtonLogin');
     const closeModalButtonsLogin = document.querySelectorAll('.close-button-login');
     const loginModal = document.getElementById('loginModal');
+    const respostaFormLogin = document.getElementById('formLogin')
 
     //-----constantes modal formulário pergunta----------
     const openModalButtonPergunta = document.getElementById('openModalButtonPergunta');
     const closeModalButtons = document.querySelectorAll('.close-buttons');
     const PerguntaModal = document.getElementById('PerguntaModal');
+    const respostaFormPergunta = document.getElementById('formPergunta')
 
     //-----constantes modal formulário resposta----------
     const openModalButtonResposta = document.getElementById('adicionarResposta');
     const closeModalButtonsResposta = document.querySelectorAll('.close-buttons');
     const RespostaModal = document.getElementById('RespostaModal');
+    const respostaFormResposta = document.getElementById('formResposta')
+
 
     /*  openModalButtonLogin.addEventListener('click', () => {
         if(logado==false){
@@ -78,9 +86,25 @@
         }
     }
 
+   /*  function enviarResposta(form,campoObrigatorio){
+        form.addEventListener('submit', (event) => {
+            const campoResposta = document.querySelector(campoObrigaotio).value.trim();
+            if (campoResposta === "") {
+                event.preventDefault();
+                alert('Por favor, preencha o campo antes de publicar.');
+            } else {
+                modal.close();
+            }
+        });
+    }
+    enviarResposta(respostaFormLogin,'.obrigatorio')
+    enviarResposta(respostaFormPergunta,'.obrigatorio')
+    enviarResposta(respostaFormResposta,'.obrigatorio')
+ */
+
     //FUnçao que verifica se o usuario está logado
     function verificarLogin(){
-        if(logado==false){
+        if(!logado){
             loginModal.showModal();
         }else{
         }
@@ -98,7 +122,9 @@
     //funções modal formulário de Resposta
     openModalButtonResposta.addEventListener('click', () => {
         verificarLogin();
-        RespostaModal.showModal();
+        if(logado){
+            RespostaModal.showModal();
+        }
     });
 
  
@@ -113,7 +139,11 @@
         //funções modal formulário pergunta
 
         openModalButtonPergunta.addEventListener('click', () => {
-            PerguntaModal.showModal();
+            if(logado==true){
+                PerguntaModal.showModal();
+            }else{
+                loginModal.showModal();
+            }
         });
 
         closeModalButtons.forEach(button=> {
