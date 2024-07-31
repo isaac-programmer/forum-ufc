@@ -1,26 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const sequelize = require('./config/database');
 const app = express();
 const port = 3000;
+const syncDatabase = require('./database/sync');
 
-// Testa a conexão com o banco de dados
-sequelize.authenticate()
-    .then(() => {
-        console.log('Conexão com o banco de dados estabelecida com sucesso.');
-    })
-    .catch(err => {
-        console.error('Não foi possível conectar ao banco de dados:', err);
-    });
-
-// Sincronizar os modelos com o banco de dados
-sequelize.sync({ force: false }) // Defina force: true para recriar tabelas, o que apaga dados existentes.
-    .then(() => {
-        console.log('Tabelas sincronizadas.');
-    })
-    .catch(err => {
-        console.error('Erro ao sincronizar tabelas:', err);
-    });
+// Sincronizar o banco de dados
+(async () => {
+  await syncDatabase();
+  console.log('Banco de dados sincronizado.');
+})();
 
 // Configurações do EJS
 app.set('view engine', 'ejs');
@@ -30,6 +18,7 @@ app.use(express.static('public'));
 
 // Middleware para processar dados do corpo da requisição
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Rotas
 const categoriasRouter = require('./routes/categorias');
