@@ -1,3 +1,15 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+
 dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.8);
 }
@@ -6,14 +18,30 @@ dialog::backdrop {
    background-color: #F0F0F0;
    padding:30px;
    border-style: none;
-   width: 80%;
+   width:70%;
    overflow: hidden;
+
+}
+#PerguntaModal{
+    max-height:400px;
+
+}
+
+#RespostaModal{
+    max-height:350px;
+}
+
+#PerguntaModal .modal-content,#RespostaModal .modal-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #PerguntaModal .modal-header, #RespostaModal  .modal-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin:0;
 }
 #PerguntaModal h3,#RespostaModal h3{
     color: #1C3A84;
@@ -21,10 +49,13 @@ dialog::backdrop {
 }
 
 #PerguntaModal #closeModalButton, #RespostaModal #closeModalButtonResposta{
-    background:none;
+    cursor: pointer;
+    font-size: 24px;
     border: none;
-    font-size: 16px;
-    margin-left: 40px;
+    outline: none;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
 }
 .user-infor{
     display: flex;
@@ -47,40 +78,57 @@ dialog::backdrop {
 }
 
 .box{
-    width: 1138px;
+    width: 1000px;
     height: 121px;
     border-width: 1px;
     border-style: solid;
     border-color: #000000;
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: 20px;
+    padding:0;
 }
+
+
 .campo-resposta{
-    width: 1100px;
-    height: 80px;
+    width:100%;
+    height:100%;
     background-color: #F0F0F0;
 
 }
 
-.box input,.box .campo-pergunta{
+.box input,.box .campo-descricao{
 
     background-color: #F0F0F0;
 }
 
-.campo-resposta{
-    width: 1100px;
-    height: 80px;
-}
 
-.box input{
+.box .campo-titulo{
     border: none;
     border-bottom: 1px solid #222222;
+    width: 990px;
+    height:50px;
+}
+
+
+.box .form-infor{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .box textarea{
     border: none;
+    padding: 5px;
+
+}
+
+.box .campo-descricao{
+    width: 990px;
+    height:50px;
+    padding: 5px;
 }
 
 #categoria{
