@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Perguntas</title>
+    <link rel="stylesheet" href="/css/styleLogin.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- <button id="openModalButton">Abrir Login</button> -->
+        <dialog id="loginModal">
+            <div class="borda-azul">
+            </div>
+            <div class="modal-content">
+                
+                <button class="close-button-login" id="closeModalButtonLogin">&times;</button>
+                <div class="modal-header">
+                    <h3>SIGAA</h3>
+                    <h4>(Acadêmico)</h4>
+                </div>
+                <form class="form-login" method="post" action="/validarLogin">
+                    <div class="form-infor">
+                        <label>Usuário</label>
+                        <input type="text" name="usuario">    
+                    </div>
+                    <div class="form-infor">
+                        <label>Senha</label>
+                        <input type="password" name="senha">    
+                    </div>
+                    <button class="close-button-login" type="submit">Entrar</button>
+                </form>
+                <div class="modal-footer">
+                    <a href="https://ead.virtual.ufc.br/index.php/guia/tutorias/">Clique aqui para acessar os tutoriais do SIGAA</a>
+                    <img class="logo-ufc" src="/assets/image3.png" alt="logo ufc">    
+                </div>
+            </div>
+        </dialog>
+    </div>
+</body>
+</html>

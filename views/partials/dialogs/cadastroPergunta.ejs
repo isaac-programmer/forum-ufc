@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Perguntas</title>
+    <link rel="stylesheet" href="/css/styleCadastroPergunta.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div class="container-FazerPergunta">
+        <dialog id="PerguntaModal">
+            <div class="modal-content">
+                
+              
+                <div class="modal-header">
+                    <h3>Fazer uma pergunta</h3>
+                    <button class="close-buttons" id="closeModalButton">&times;</button>
+                </div>
+                <div class="user-infor">
+                    <img src="/assets/user.svg" width="50" height="60">
+                    <div>
+                        <p class="user-nome">Thiago Iashiley</p>
+                        <p class="user-curso">Engenharia de computaçao</p>    
+                    </div>
+                </div>
+                <form class="form-FazerPergunta" method="post" action="/rotaFazerPergunta">
+                    <div class="box">
+                        <div class="form-infor">
+                            <input type="text" placeholder="Título" name="titulo" required>    
+                        </div>
+                        <div class="form-infor">
+                            <textarea class="campo-pergunta" name="descricao" placeholder="Descrição(opcional)"></textarea>  
+                        </div>
+
+                    </div>
+                   <select id="categoria" name="categorias">
+                        <option value="legenda">Selecione uma categoria</option>
+                        <option value="tcc">TCC</option>
+                        <option value="ru">RU</option>
+                        <option value="bolsas">Bolsas</option>
+                    </select>
+                    <div class="buttons-finais">
+                        <button type="submit" class="close-buttons button-publicar">Publicar pergunta</button>
+                        <button type="button" class="close-buttons button-cancelar">Cancelar</button>    
+                    </div>
+                </form>
+
+            </div>
+        </dialog>
+    </div>
+</body>
+</html>

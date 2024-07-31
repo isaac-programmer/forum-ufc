@@ -1,0 +1,121 @@
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#PerguntaModal,#RespostaModal{
+   background-color: #F0F0F0;
+   padding:30px;
+   border-style: none;
+   width: 80%;
+   overflow: hidden;
+}
+
+
+#PerguntaModal .modal-header, #RespostaModal  .modal-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#PerguntaModal h3,#RespostaModal h3{
+    color: #1C3A84;
+    font-size:24px;
+}
+
+#PerguntaModal #closeModalButton, #RespostaModal #closeModalButtonResposta{
+    background:none;
+    border: none;
+    font-size: 16px;
+    margin-left: 40px;
+}
+.user-infor{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-infor img{
+    display: block;
+}
+.user-nome{
+    font-size:14px;
+    font-weight: 700;
+}
+
+.user-curso{
+    font-size:12px;
+    font-weight: 400;
+    color: #222222;
+}
+
+.box{
+    width: 1138px;
+    height: 121px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #000000;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 20px;
+}
+.campo-resposta{
+    width: 1100px;
+    height: 80px;
+    background-color: #F0F0F0;
+
+}
+
+.box input,.box .campo-pergunta{
+
+    background-color: #F0F0F0;
+}
+
+.campo-resposta{
+    width: 1100px;
+    height: 80px;
+}
+
+.box input{
+    border: none;
+    border-bottom: 1px solid #222222;
+}
+
+.box textarea{
+    border: none;
+}
+
+#categoria{
+    margin-top: 16px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px;
+    border-style: solid;
+}
+#categoria:hover{
+    background-color: #214CCE;
+}
+.buttons-finais{
+    margin-top: 16px;
+}
+
+.button-publicar{
+    color: #fff;
+    background-color: #214CCE;
+    padding: 8px;
+    border-radius: 8px;
+    border-style: solid;
+}
+
+.button-publicar:hover{
+    background-color: #1C3A84 ;
+}
+
+.button-cancelar{
+    background: none;
+    color: #1C3A84;
+    border: none;
+}
+
+.button-cancelar:hover{
+    color: #000000;
+}
