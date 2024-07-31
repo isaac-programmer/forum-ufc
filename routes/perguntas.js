@@ -112,7 +112,7 @@ router.get("/perguntas", async (req, res) => {
 
   // Adiciona condição ao orderClause se ordem for fornecida
   if (ordem) {
-    orderClause = [['createdAt', ordem]];
+    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes'
   }
 
   try {
@@ -123,10 +123,9 @@ router.get("/perguntas", async (req, res) => {
         {
           model: Resposta,
           as: 'respostas',
-          order: [['likes', 'DESC']] // Ordenar respostas por "likes" em ordem descendente
+          order: orderClause.length ? orderClause : [['likes', 'DESC']] // Se ordem for fornecida, use-a; caso contrário, ordene por 'likes' em ordem descendente
         }
-      ],
-      order: orderClause.length ? orderClause : undefined // Se não houver ordem, omitir order
+      ]
     });
 
     res.json(perguntas);
@@ -135,5 +134,6 @@ router.get("/perguntas", async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar perguntas' });
   }
 });
+
 
 module.exports = router;
