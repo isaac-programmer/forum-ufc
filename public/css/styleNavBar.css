@@ -35,25 +35,22 @@ body {
     justify-content: space-between;
     background-color: #f8f9fa;
     padding: 10px 30px;
-}
-
-.navbar {
     height: 50px;
 }
 
 .navbar-nav {
     display: flex;
-    gap: 100px;
+    gap: 100px; 
 }
 
-.navbar-nav .btn {
+.navbar-nav a {
     text-decoration: none;
     color: #1C3A84;
     padding: 5px 10px;
-    transition: color 0.3s;
+    transition: color 0.1s, border-top 0.1s;
 }
 
-.navbar-nav .btn:hover {
+.navbar-nav a:hover {
     color: #FDA600;
     border-top: 2px solid #FDA600;
 }
@@ -76,4 +73,5 @@ body {
 .btn:hover {
     background-color: #1C3A84;
     color: #fff;
+    transform: scale(1.02);
 }

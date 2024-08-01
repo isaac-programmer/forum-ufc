@@ -3,6 +3,11 @@ const router = express.Router();
 const {Pergunta, Resposta} = require('../database/models/PerguntasRespostas');
 const Usuario = require('../database/models/Usuario');
 
+router.post("/validarlogin",(req,res)=>{
+    //var user = req.body.usuario;
+    //var senha = req.body.senha;
+});
+
 router.post("/perguntar", async (req, res) => {
   try {
     const { nome, email, pergunta, categoria, descricao } = req.body;
@@ -26,7 +31,7 @@ router.post("/perguntar", async (req, res) => {
       descricao
     });
 
-    res.status(201).json(novaPergunta);
+    res.redirect("/perguntas");
   } catch (error) {
     console.error('Erro ao salvar pergunta:', error);
     res.status(500).json({ error: 'Erro interno do servidor.' });
@@ -128,7 +133,7 @@ router.get("/perguntas", async (req, res) => {
       ]
     });
 
-    res.json(perguntas);
+    res.render("index", {perguntas: perguntas});
   } catch (error) {
     console.error('Erro ao buscar perguntas:', error);
     res.status(500).json({ error: 'Erro ao buscar perguntas' });

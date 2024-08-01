@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Rota para a página inicial
 router.get("/", (req, res) => {
-    res.render("home");
+    res.render("index");
 });
 
 router.get("/categoria", (req, res) => {
