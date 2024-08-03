@@ -19,23 +19,11 @@
                 <%- include('partials/dialogs/cadastroPergunta.ejs') %>
                     <%- include('partials/dialogs/cadastroResposta.ejs') %>
                         <%- include('partials/navbar.ejs') %>
+                        
+                            <h1>Bem-vindo à Página Inicial</h1>
+                            <p>Escolha uma categoria para ver as perguntas.</p>
+                   
 
-                            <menu>
-                                <% perguntas.forEach(pergunta=> { %>
-                                    <section class="card-pergunta">
-                                        <div class="titulo-pergunta">
-                                            <%= pergunta.pergunta %>
-                                        </div>
-                                        <p class="conteudo">
-                                            <%= pergunta.descricao %>
-                                        </p>
-                                        <span class="categoria">
-                                            <%= pergunta.categoria %>
-                                        </span>
-                                        <a href="#" class="comentarios">0 Comentários</a>
-                                    </section>
-                                    <% }) %>
-                            </menu>
     </main>
 </body>
 <script>

@@ -4,6 +4,10 @@ const app = express();
 const port = 3000;
 const syncDatabase = require('./database/sync');
 
+// Importar rotas
+const categoriasRouter = require('./routes/categorias');
+const perguntasRouter = require('./routes/perguntas');
+
 // Sincronizar o banco de dados
 (async () => {
   await syncDatabase();
@@ -21,9 +25,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Rotas
-const categoriasRouter = require('./routes/categorias');
-const perguntasRouter = require('./routes/perguntas');
-
 app.use('/', categoriasRouter);
 app.use('/', perguntasRouter);
 

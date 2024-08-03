@@ -1,14 +1,18 @@
 <div class="blue-bar"></div>
-<div class="logo-conatiner">
+<div class="logo-container">
     <img src="/assets/logo.png" alt="Universidade Federal do Ceará" class="logo">
 </div>
 <div class="gray-line"></div>
 <nav class="navbar">
     <div class="navbar-nav">
-        <a href="/" class="active">Início</a>
-        <a href="/tcc">TCC</a>
-        <a href="/ru">RU</a>
-        <a href="/bolsas">Bolsas</a>
+        <!-- Link para Início não tem parâmetro de query -->
+        <a href="/home">Início</a>
+        <!-- Link para TCC com parâmetro de query -->
+        <a href="/perguntas?categoria=tcc">TCC</a>
+        <!-- Link para RU com parâmetro de query -->
+        <a href="/perguntas?categoria=ru">RU</a>
+        <!-- Link para Bolsas com parâmetro de query -->
+        <a href="/perguntas?categoria=bolsas">Bolsas</a>
     </div>
     <button class="btn" id="openModalButtonPergunta">Fazer uma pergunta</button>
 </nav>

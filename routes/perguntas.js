@@ -133,7 +133,7 @@ router.get("/perguntas", async (req, res) => {
       ]
     });
 
-    res.render("index", {perguntas: perguntas});
+    res.render("index", {perguntas, perguntas});
   } catch (error) {
     console.error('Erro ao buscar perguntas:', error);
     res.status(500).json({ error: 'Erro ao buscar perguntas' });
