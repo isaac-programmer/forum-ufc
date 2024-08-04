@@ -1,0 +1,47 @@
+:root {
+    --border-color: #D9D9D9;
+    --blue-primary: #1C3A84;
+    --blue-light-text: #0000FF;
+    --blue-button: #214CCE;
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Sem Conteúdo */
+#sem-conteudo {
+    height: 30vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sem-conteudo p {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Dialog - Geral */
+dialog {
+    margin: auto;
+    border: none;
+    border-radius: 10px;
+    width: 70%;
+    padding: 40px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}

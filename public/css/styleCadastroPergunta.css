@@ -14,7 +14,8 @@ dialog::backdrop {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-#PerguntaModal,#RespostaModal{
+#PerguntaModal,
+#RespostaModal {
    background-color: #F0F0F0;
    padding:30px;
    border-style: none;
@@ -22,6 +23,7 @@ dialog::backdrop {
    overflow: hidden;
 
 }
+
 #PerguntaModal{
     max-height:400px;
 
@@ -37,7 +39,7 @@ dialog::backdrop {
     flex-direction: column;
 }
 
-#PerguntaModal .modal-header, #RespostaModal  .modal-header{
+#PerguntaModal .modal-header, #RespostaModal  .modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -57,6 +59,7 @@ dialog::backdrop {
     height: 24px;
     background-color: transparent;
 }
+
 .user-infor{
     display: flex;
     flex-direction: row;
@@ -66,6 +69,7 @@ dialog::backdrop {
 .user-infor img{
     display: block;
 }
+
 .user-nome{
     font-size:14px;
     font-weight: 700;
@@ -90,7 +94,6 @@ dialog::backdrop {
     padding:0;
 }
 
-
 .campo-resposta{
     width:100%;
     height:100%;
@@ -99,10 +102,8 @@ dialog::backdrop {
 }
 
 .box input,.box .campo-descricao{
-
     background-color: #F0F0F0;
 }
-
 
 .box .campo-titulo{
     border: none;
@@ -110,7 +111,6 @@ dialog::backdrop {
     width: 990px;
     height:50px;
 }
-
 
 .box .form-infor{
     width: 100%;
@@ -122,7 +122,6 @@ dialog::backdrop {
 .box textarea{
     border: none;
     padding: 5px;
-
 }
 
 .box .campo-descricao{
@@ -138,14 +137,17 @@ dialog::backdrop {
     border: 1px;
     border-style: solid;
 }
+
 #categoria:hover{
     background-color: #214CCE;
 }
+
 .buttons-finais{
     margin-top: 16px;
 }
 
 .button-publicar{
+    cursor: pointer;
     color: #fff;
     background-color: #214CCE;
     padding: 8px;
@@ -158,6 +160,7 @@ dialog::backdrop {
 }
 
 .button-cancelar{
+    cursor: pointer;
     background: none;
     color: #1C3A84;
     border: none;

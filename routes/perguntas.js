@@ -50,6 +50,7 @@ router.post("/responder", async (req, res) => {
     if (!nome || !email) {
       return res.status(400).json({ error: 'Nome e e-mail são obrigatórios para criar um novo usuário.' });
     }
+    
     // Salva o Usuário
     let usuario = await Usuario.create({ nome, email });
 
@@ -139,6 +140,5 @@ router.get("/perguntas", async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar perguntas' });
   }
 });
-
 
 module.exports = router;
