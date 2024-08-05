@@ -31,7 +31,7 @@ router.post("/perguntar", async (req, res) => {
       descricao
     });
 
-    res.redirect("/perguntas");
+    res.status(201).json(novaPergunta);
   } catch (error) {
     console.error('Erro ao salvar pergunta:', error);
     res.status(500).json({ error: 'Erro interno do servidor.' });
@@ -138,6 +138,38 @@ router.get("/perguntas", async (req, res) => {
   } catch (error) {
     console.error('Erro ao buscar perguntas:', error);
     res.status(500).json({ error: 'Erro ao buscar perguntas' });
+  }
+});
+
+router.get("/pergunta/:id", async (req, res) => {
+  const id = req.params.id;
+  const { ordem } = req.query;
+
+  // Configurações para a consulta
+  let orderClause = [];
+
+  // Adiciona condição ao orderClause se ordem for fornecida
+  if (ordem) {
+    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes'
+  }
+
+  try {
+    // Buscar perguntas com condições dinâmicas
+    const pergunta = await Pergunta.findOne({
+      where: { id: id },
+      include: [
+        {
+          model: Resposta,
+          as: 'respostas',
+          order: orderClause.length ? orderClause : [['likes', 'DESC']] // Se ordem for fornecida, use-a; caso contrário, ordene por 'likes' em ordem descendente
+        }
+      ]
+    });
+
+    res.render("pergunta", {pergunta, pergunta});
+  } catch (error) {
+    console.error(`Erro ao buscar pergunta ${id}:`, error);
+    res.status(500).json({ error: `Erro ao buscar pergunta ${id}` });
   }
 });
 

@@ -1,42 +1,74 @@
-/* Card - Perguntas */
-.card-pergunta {
+/* Sem Pergunta/Resposta */
+
+#sem-pergunta,
+#sem-resposta {
+    height: 30vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sem-resposta {
+    height: 15vh;
+    padding: 0;
+}
+
+#sem-pergunta p,
+#sem-resposta p {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Página - Perguntas */
+
+#perguntas-container {
+    width: 80%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#perguntas-container .card-pergunta {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 80%;
+    width: 100%;
     padding: 20px;
     cursor: pointer;
-    margin: 20px auto;
     border-radius: 10px;
     background-color: var(--white);
     border: 1px solid var(--border-color);
 }
 
-.card-pergunta .titulo {
+#perguntas-container .card-pergunta .titulo {
     color: var(--blue-primary);
     font-size: 24px;
     font-weight: 600;
 }
 
-.card-pergunta .pergunta {
+#perguntas-container .card-pergunta .pergunta {
     font-size: 14px;
     color: var(--black);
     width: 100%;
 }
 
-.card-pergunta .detalhes {
+#perguntas-container .card-pergunta .detalhes {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.card-pergunta .detalhes .categoria {
+#perguntas-container .card-pergunta .detalhes .categoria {
     display: inline-block;
     text-align: center;
     text-transform: uppercase;
     color: var(--white);
-    width: 81px;
+    width: auto;
     padding: 5px 20px;
     font-size: 12px;
     text-align: center;
@@ -45,92 +77,83 @@
     background-color: var(--blue-primary);
 }
 
-.card-pergunta .detalhes a.comentarios {
+#perguntas-container .card-pergunta .detalhes a.comentarios {
     font-size: 14px;
     color: var(--black);
     text-decoration: none;
 }
 
-.card-pergunta .detalhes a.comentarios:hover {
+#perguntas-container .card-pergunta .detalhes a.comentarios:hover {
     text-decoration: underline;
     color: var(--blue-light-text);
 }
 
-/* Dialog - Pergunta */
-#dialogPergunta {
-    max-height: 632px;
-}
+/* Página - Pergunta */
 
-#dialogPergunta #content {
+#pergunta-container #content {
+    width: 80%;
+    margin: 0 auto;
+
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
-#dialogPergunta #content header {
+#pergunta-container #content header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-#dialogPergunta #content header h1 {
+#pergunta-container #content header h1 {
+    font-size: 36px;
     color: var(--blue-primary);
 }
 
-#dialogPergunta #content header #fechar {
-    cursor: pointer;
-    font-size: 24px;
-    border: none;
-    outline: none;
-    width: 24px;
-    height: 24px;
-    background-color: transparent;
-}
-
-#dialogPergunta #content #rank-votos select {
+#pergunta-container #content #rank-votos select {
     cursor: pointer;
     padding: 8px;
     border-radius: 8px;
     border: 1px solid #222222;
 }
 
-#dialogPergunta #content .respostas {
+#pergunta-container #content .respostas {
     display: flex;
     flex-direction: column;
     gap: 40px;
 }
 
-#dialogPergunta #content .resposta-container {
+#pergunta-container #content .resposta-container {
     font-size: 14px;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-#dialogPergunta #content .resposta-container .header {
+#pergunta-container #content .resposta-container .header {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 5px;
 }
 
-#dialogPergunta #content .resposta-container .header .user-nome {
+#pergunta-container #content .resposta-container .header .user-nome {
     font-size: 14px;
     font-weight: 700;
 }
 
-#dialogPergunta #content .resposta-container .header .user-curso {
+#pergunta-container #content .resposta-container .header .user-curso {
     font-size: 12px;
     font-weight: 400;
 }
 
-#dialogPergunta #content .resposta-container .resposta {
+#pergunta-container #content .resposta-container .resposta {
     font-size: 14px;
     font-weight: 400;
     padding-left: 55px;
 }
 
-#dialogPergunta #content .resposta-container .votos {
+#pergunta-container #content .resposta-container .votos {
     margin-top: 12px;
     padding-left: 55px;
     display: flex;
@@ -138,24 +161,24 @@
     gap: 20px;
 }
 
-#dialogPergunta .resposta-container .votos .likes,
-#dialogPergunta .resposta-container .votos .deslikes {
+#pergunta-container .resposta-container .votos .likes,
+#pergunta-container .resposta-container .votos .deslikes {
     display: flex;
     flex-direction: row;
     align-items: fe;
     gap: 5px;
 }
 
-#dialogPergunta .resposta-container .votos img {
+#pergunta-container .resposta-container .votos img {
     cursor: pointer;
 }
 
-#dialogPergunta #content footer {
+#pergunta-container #content footer {
     display: flex;
     justify-content: flex-start;
 }
 
-#dialogPergunta #content footer #adicionarResposta {
+#pergunta-container #content footer #adicionarResposta {
     cursor: pointer;
     width: 178px;
     height: 37px;

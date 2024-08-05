@@ -12,16 +12,15 @@
                     <p class="user-curso">Engenharia de computaçao</p>
                 </div>
             </div>
-            <form class="form-FazerPergunta" id="formPergunta" method="post" action="/perguntar">
+            <form class="form-FazerPergunta" id="formPergunta" onsubmit="postPergunta(event)">
                 <div class="box">
-                    <input type="text" name="nome" value="Isaac" hidden>
-                    <input type="text" name="email" value="isaac@teste.com" hidden>
-
                     <div class="form-infor">
-                        <input class="campo-titulo obrigatorio" type="text" placeholder="Título" name="pergunta" required>
+                        <input id="titulo" class="campo-titulo obrigatorio" type="text" placeholder="Título"
+                            name="pergunta" required>
                     </div>
                     <div class="form-infor">
-                        <textarea class="campo-descricao" name="descricao" placeholder="Descrição(opcional)"></textarea>
+                        <textarea id="descricao" class="campo-descricao" name="descricao"
+                            placeholder="Descrição(opcional)"></textarea>
                     </div>
                 </div>
                 <select id="categoria" name="categoria">

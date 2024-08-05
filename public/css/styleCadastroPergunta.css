@@ -131,15 +131,12 @@ dialog::backdrop {
 }
 
 #categoria{
+    cursor: pointer;
     margin-top: 16px;
     padding: 8px;
     border-radius: 4px;
     border: 1px;
     border-style: solid;
-}
-
-#categoria:hover{
-    background-color: #214CCE;
 }
 
 .buttons-finais{

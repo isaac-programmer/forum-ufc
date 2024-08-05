@@ -18,19 +18,8 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Sem Conteúdo */
-#sem-conteudo {
-    height: 30vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-#sem-conteudo p {
-    font-size: 1.5rem;
-    text-align: center;
+main {
+    padding: 40px;
 }
 
 /* Dialog - Geral */

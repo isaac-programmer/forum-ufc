@@ -14,132 +14,191 @@
 </head>
 
 <body>
-    <main>
-        <%- include('partials/dialogs/exibirPergunta.ejs') %>
-            <%- include('partials/dialogs/login.ejs') %>
-                <%- include('partials/dialogs/cadastroPergunta.ejs') %>
+    <%- include('partials/dialogs/cadastroPergunta.ejs') %>
+        <%- include('partials/navbar.ejs') %>
+
+            <main>
+                <%- include('partials/dialogs/login.ejs') %>
                     <%- include('partials/dialogs/cadastroResposta.ejs') %>
-                        <%- include('partials/navbar.ejs') %>
 
-                            <% if (perguntas && perguntas.length> 0) { %>
-                                <menu>
-                                    <% perguntas.forEach(pergunta=> { %>
-                                        <section class="card-pergunta">
-                                            <div class="titulo">
-                                                <%= pergunta.pergunta %>
-                                            </div>
-                                            <p class="pergunta">
-                                                <%= pergunta.descricao %>
-                                            </p>
-                                            <div class="detalhes">
-                                                <span class="categoria">
-                                                    <%= pergunta.categoria %>
-                                                </span>
-                                                <a href="#" class="comentarios">0 Comentários</a>
-                                            </div>
-                                        </section>
-                                        <% }) %>
-                                </menu>
-                                <% } else { %>
-                                    <section id="sem-conteudo">
-                                        <p>Nenhuma pergunta encontrada!</p>
+                        <% if (perguntas && perguntas.length> 0) { %>
+                            <section id="perguntas-container">
+                                <% perguntas.forEach(pergunta=> { %>
+                                    <section class="card-pergunta" onclick="exibirPergunta('<%= pergunta.id %>')">
+                                        <div class="titulo">
+                                            <%= pergunta.pergunta %>
+                                        </div>
+                                        <p class="pergunta">
+                                            <%= pergunta.descricao %>
+                                        </p>
+                                        <div class="detalhes">
+                                            <span class="categoria">
+                                                <%= pergunta.categoria %>
+                                            </span>
+                                            <a href="pergunta/<%= pergunta.id %>" class="comentarios">
+                                                <%= pergunta.respostas.length %> Comentários
+                                            </a>
+                                        </div>
                                     </section>
-                                    <% } %>
-    </main>
+                                    <% }) %>
+                            </section>
+                            <% } else { %>
+                                <section id="sem-pergunta">
+                                    <p>Nenhuma pergunta encontrada!</p>
+                                </section>
+                                <% } %>
+            </main>
+            <script>
+                let logado = false;
+                sessionStorage.clear();
+
+                (function () {
+                    var cardPergunta = document.querySelector(".card-pergunta");
+                    var botaoCancelar = document.getElementById("fechar");
+                    var dialogPergunta = document.getElementById("dialogPergunta");
+                    var formLogin = document.getElementById('formLogin');
+
+                    cardPergunta?.addEventListener("click", function () {
+                        dialogPergunta.showModal();
+                    });
+
+                    botaoCancelar?.addEventListener("click", function () {
+                        dialogPergunta.close();
+                    });
+                })();
+
+                //---constantes modal formulário login----------
+                // const openModalButtonLogin = document.getElementById('openModalButtonLogin');
+                const closeModalButtonsLogin = document.querySelectorAll('.close-button-login');
+                const loginModal = document.getElementById('loginModal');
+                const respostaFormLogin = document.getElementById('formLogin')
+
+                //-----constantes modal formulário pergunta----------
+                const openModalButtonPergunta = document.getElementById('openModalButtonPergunta');
+                const closeModalButtons = document.querySelectorAll('.close-buttons');
+                const PerguntaModal = document.getElementById('PerguntaModal');
+                const respostaFormPergunta = document.getElementById('formPergunta')
+
+                //-----constantes modal formulário resposta----------
+                const openModalButtonResposta = document.getElementById('adicionarResposta');
+                const closeModalButtonsResposta = document.querySelectorAll('.close-buttons');
+                const RespostaModal = document.getElementById('RespostaModal');
+                const respostaFormResposta = document.getElementById('formResposta')
+
+                // Função para redefinir o formulário(apaga os dados sempre que fechar o forms)
+                function resetForm(modal) {
+                    const form = modal.querySelector('form');
+                    if (form) {
+                        form.reset();
+                    }
+                }
+
+                // Função que verifica se o usuário está logado
+                function verificarLogin() {
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    if (!logado && !nome && !email) {
+                        loginModal.showModal();
+                    }
+                }
+
+                // Função para obter os dados do login
+                function getDadosLogin(event) {
+                    event.preventDefault();
+
+                    const nome = document.getElementById("nome-usuario").value || "Isaac";
+                    const email = document.getElementById("email-usuario").value || "isaac@teste.com";
+
+                    sessionStorage.setItem("nome_usuario", nome);
+                    sessionStorage.setItem("email_usuario", email);
+                }
+
+                // Função para redirecionar para a página de uma pergunta específica
+                function exibirPergunta(id) {
+                    window.location.href = `pergunta/${id}`;
+                }
+
+                closeModalButtonsLogin.forEach(button => {
+                    button.addEventListener('click', () => {
+                        logado = true;
+                        loginModal.close();
+                        resetForm(loginModal);
+                    })
+                })
+
+                // Funções modal - Formulário de Resposta
+                openModalButtonResposta?.addEventListener('click', () => {
+                    if (logado == true) {
+                        PerguntaModal.showModal();
+                    } else {
+                        loginModal.showModal();
+                    }
+                });
+
+
+                closeModalButtonsResposta.forEach(button => {
+                    button.addEventListener('click', () => {
+                        RespostaModal.close();
+                        resetForm(RespostaModal);
+                    })
+                })
+
+                // Funções modal - Formulário de Pergunta
+                openModalButtonPergunta.addEventListener('click', () => {
+                    if (logado == true) {
+                        PerguntaModal.showModal();
+                    } else {
+                        loginModal.showModal();
+                    }
+                });
+
+                closeModalButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        PerguntaModal.close();
+                        resetForm(PerguntaModal);
+                    })
+                })
+
+                async function postPergunta(e) {
+                    e.preventDefault();
+
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    const titulo = document.getElementById("titulo").value;
+                    const descricao = document.getElementById("descricao").value;
+                    const categoria = document.getElementById("categoria").value;
+
+                    const dadosFormulario = {
+                        nome: nome,
+                        email: email,
+                        pergunta: titulo,
+                        categoria: categoria,
+                        descricao: descricao,
+                    };
+
+                    try {
+                        const response = await fetch('/perguntar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dadosFormulario)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Erro na requisição');
+                        }
+
+                        const data = await response.json();
+
+                        window.location.href = `/perguntas`;
+                    } catch (error) {
+                        console.error('Erro:', error);
+                    }
+                }
+            </script>
 </body>
-
-<script>
-    let logado = false;
-    (function () {
-        var cardPergunta = document.querySelector(".card-pergunta");
-        var botaoCancelar = document.getElementById("fechar");
-        var dialogPergunta = document.getElementById("dialogPergunta");
-        var formLogin = document.getElementById('formLogin');
-
-        cardPergunta?.addEventListener("click", function () {
-            dialogPergunta.showModal();
-        });
-
-        botaoCancelar.addEventListener("click", function () {
-            dialogPergunta.close();
-        });
-    })();
-
-    //---constantes modal formulário login----------
-    // const openModalButtonLogin = document.getElementById('openModalButtonLogin');
-    const closeModalButtonsLogin = document.querySelectorAll('.close-button-login');
-    const loginModal = document.getElementById('loginModal');
-    const respostaFormLogin = document.getElementById('formLogin')
-
-    //-----constantes modal formulário pergunta----------
-    const openModalButtonPergunta = document.getElementById('openModalButtonPergunta');
-    const closeModalButtons = document.querySelectorAll('.close-buttons');
-    const PerguntaModal = document.getElementById('PerguntaModal');
-    const respostaFormPergunta = document.getElementById('formPergunta')
-
-    //-----constantes modal formulário resposta----------
-    const openModalButtonResposta = document.getElementById('adicionarResposta');
-    const closeModalButtonsResposta = document.querySelectorAll('.close-buttons');
-    const RespostaModal = document.getElementById('RespostaModal');
-    const respostaFormResposta = document.getElementById('formResposta')
-
-    // Função para redefinir o formulário(apaga os dados sempre que fechar o forms)
-    function resetForm(modal) {
-        const form = modal.querySelector('form');
-        if (form) {
-            form.reset();
-        }
-    }
-
-    //Funçao que verifica se o usuario está logado
-    function verificarLogin() {
-        if (!logado) {
-            loginModal.showModal();
-        } else {
-        }
-    }
-
-    window.location.href
-
-    closeModalButtonsLogin.forEach(button => {
-        button.addEventListener('click', () => {
-            logado = true;
-            loginModal.close();
-            resetForm(loginModal);
-        })
-    })
-
-    //funções modal formulário de Resposta
-    openModalButtonResposta.addEventListener('click', () => {
-        verificarLogin();
-        if (logado) {
-            RespostaModal.showModal();
-        }
-    });
-
-
-    closeModalButtonsResposta.forEach(button => {
-        button.addEventListener('click', () => {
-            RespostaModal.close();
-            resetForm(RespostaModal);
-        })
-    })
-
-    //funções modal formulário pergunta
-    openModalButtonPergunta.addEventListener('click', () => {
-        if (logado == true) {
-            PerguntaModal.showModal();
-        } else {
-            loginModal.showModal();
-        }
-    });
-
-    closeModalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            PerguntaModal.close();
-            resetForm(PerguntaModal);
-        })
-    })
-</script>
 
 </html>

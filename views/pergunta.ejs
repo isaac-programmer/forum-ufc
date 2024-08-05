@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Perguntas</title>
+
+    <link rel="stylesheet" href="/css/styleGlobal.css">
+    <link rel="stylesheet" href="/css/stylePergunta.css">
+    <link rel="stylesheet" href="/css/styleNavBar.css">
+    <link rel="stylesheet" href="/css/styleLogin.css">
+    <link rel="stylesheet" href="/css/styleCadastroPergunta.css">
+</head>
+
+<body>
+    <%- include('partials/dialogs/cadastroPergunta.ejs') %>
+        <%- include('partials/navbar.ejs') %>
+
+            <main>
+                <%- include('partials/dialogs/login.ejs') %>
+                    <%- include('partials/dialogs/cadastroResposta.ejs') %>
+
+                        <% if (pergunta) { %>
+                            <section id="pergunta-container">
+                                <section id="content">
+                                    <header>
+                                        <h1>
+                                            <%= pergunta.pergunta %>
+                                        </h1>
+                                    </header>
+
+                                    <% if (pergunta.respostas && pergunta.respostas.length> 0) { %>
+                                        <section id="rank-votos">
+                                            <select id="rank-voto" name="rank_voto" onchange="ordenarRespostas(event, '<%- pergunta.id %>')">
+                                                <option disabled selected><em>Escolha uma opção</em></option>
+                                                <option value="DESC">Mais votados</option>
+                                                <option value="ASC">Menos votados</option>
+                                            </select>
+                                        </section>
+
+                                        <section class="respostas">
+                                            <% pergunta.respostas.forEach(resposta=> { %>
+                                                <div class="resposta-container">
+                                                    <div class="header">
+                                                        <img src="/assets/user.svg" width="50" height="60">
+                                                        <div>
+                                                            <p class="user-nome">Thiago Iashiley</p>
+                                                            <p class="user-curso">Engenharia de Computação</p>
+                                                        </div>
+                                                    </div>
+                                                    <p class="resposta">
+                                                        <%= resposta.resposta %>
+                                                    </p>
+                                                    <div class="votos">
+                                                        <div class="likes">
+                                                            <img src="/assets/like.svg" width="19" height="19"
+                                                                onclick="postVotar(event,'like', '<%= resposta.id %>')">
+                                                            <span class="numero-likes">
+                                                                <%= resposta.likes %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="deslikes">
+                                                            <img src="/assets/deslike.svg" width="19" height="19"
+                                                                onclick="postVotar(event,'dislike', '<%= resposta.id %>')">
+                                                            <span class="numero-deslikes">
+                                                                <%= resposta.dislikes %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }) %>
+                                        </section>
+                                        <% } else { %>
+                                            <section id="sem-resposta">
+                                                <p>Nenhuma resposta encontrada!</p>
+                                            </section>
+                                            <% } %>
+                                                <footer>
+                                                    <button id="adicionarResposta">Adicionar resposta</button>
+                                                </footer>
+                                </section>
+                            </section>
+                            <% } else { %>
+                                <section id="sem-pergunta">
+                                    <p>Nenhuma pergunta encontrada!</p>
+                                </section>
+                                <% } %>
+            </main>
+            <script>
+                let logado = false;
+                sessionStorage.clear();
+
+                (function () {
+                    var cardPergunta = document.querySelector(".card-pergunta");
+                    var botaoCancelar = document.getElementById("fechar");
+                    var dialogPergunta = document.getElementById("dialogPergunta");
+                    var formLogin = document.getElementById('formLogin');
+
+                    cardPergunta?.addEventListener("click", function () {
+                        dialogPergunta.showModal();
+                    });
+
+                    botaoCancelar?.addEventListener("click", function () {
+                        dialogPergunta.close();
+                    });
+                })();
+
+                //---constantes modal formulário login----------
+                const closeModalButtonsLogin = document.querySelectorAll('.close-button-login');
+                const loginModal = document.getElementById('loginModal');
+                const respostaFormLogin = document.getElementById('formLogin')
+
+                //-----constantes modal formulário pergunta----------
+                const openModalButtonPergunta = document.getElementById('openModalButtonPergunta');
+                const closeModalButtons = document.querySelectorAll('.close-buttons');
+                const PerguntaModal = document.getElementById('PerguntaModal');
+                const respostaFormPergunta = document.getElementById('formPergunta')
+
+                //-----constantes modal formulário resposta----------
+                const openModalButtonResposta = document.getElementById('adicionarResposta');
+                const closeModalButtonsResposta = document.querySelectorAll('.close-buttons');
+                const RespostaModal = document.getElementById('RespostaModal');
+                const respostaFormResposta = document.getElementById('formResposta')
+
+                // Função para redefinir o formulário(apaga os dados sempre que fechar o forms)
+                function resetForm(modal) {
+                    const form = modal.querySelector('form');
+                    if (form) {
+                        form.reset();
+                    }
+                }
+
+                // Função que verifica se o usuário está logado
+                function verificarLogin() {
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    if (!logado && !nome && !email) {
+                        loginModal.showModal();
+                    }
+                }
+
+                // Função para obter os dados do login
+                function getDadosLogin(event) {
+                    event.preventDefault();
+
+                    const nome = document.getElementById("nome-usuario").value || "Isaac";
+                    const email = document.getElementById("email-usuario").value || "isaac@teste.com";
+
+                    sessionStorage.setItem("nome_usuario", nome);
+                    sessionStorage.setItem("email_usuario", email);
+                }
+
+                closeModalButtonsLogin.forEach(button => {
+                    button.addEventListener('click', () => {
+                        logado = true;
+                        loginModal.close();
+                        resetForm(loginModal);
+                    })
+                })
+
+                // Funções modal - Formulário de Resposta
+                openModalButtonResposta?.addEventListener('click', () => {
+                    verificarLogin();
+                    if (logado) {
+                        RespostaModal.showModal();
+                    }
+                });
+
+                closeModalButtonsResposta.forEach(button => {
+                    button.addEventListener('click', () => {
+                        RespostaModal.close();
+                        resetForm(RespostaModal);
+                    })
+                })
+
+                // Funções modal - Formulário de Pergunta
+                openModalButtonPergunta?.addEventListener('click', () => {
+                    if (logado == true) {
+                        PerguntaModal.showModal();
+                    } else {
+                        loginModal.showModal();
+                    }
+                });
+
+                closeModalButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        PerguntaModal.close();
+                        resetForm(PerguntaModal);
+                    })
+                })
+
+                // Função - Ordenar respostas por likes
+                function ordenarRespostas(e, pergunta_id) {
+                    e.preventDefault();
+                    const ordem = document.getElementById("rank-voto").value;
+                    window.location.href = `/pergunta/${pergunta_id}?ordem=${ordem}`;
+                }
+
+                // Função - Votar - Resposta
+                async function postVotar(e, voto, resposta_id) {
+                    e.preventDefault();
+
+                    verificarLogin();
+
+                    const pathname = window.location.pathname;
+                    const pergunta_id = pathname.split('/')[2];
+
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    const dados = {
+                        nome: nome,
+                        email: email,
+                        voto: voto,
+                        resposta_id: resposta_id,
+                    };
+
+                    try {
+                        const response = await fetch('/votar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dados)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Erro na requisição');
+                        }
+
+                        const data = await response.json();
+
+                        window.location.href = `/pergunta/${pergunta_id}`;
+                    } catch (error) {
+                        console.error('Erro:', error);
+                    }
+                }
+
+                // Funções - Cadastrar - Pergunta/Resposta
+                async function postPergunta(e) {
+                    e.preventDefault();
+
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    const titulo = document.getElementById("titulo").value;
+                    const descricao = document.getElementById("descricao").value;
+                    const categoria = document.getElementById("categoria").value;
+
+                    const dadosFormulario = {
+                        nome: nome,
+                        email: email,
+                        pergunta: titulo,
+                        categoria: categoria,
+                        descricao: descricao,
+                    };
+
+                    try {
+                        const response = await fetch('/perguntar', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dadosFormulario)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Erro na requisição');
+                        }
+
+                        const data = await response.json();
+
+                        window.location.href = `/perguntas`;
+                    } catch (error) {
+                        console.error('Erro:', error);
+                    }
+                }
+
+                async function postResposta(e) {
+                    e.preventDefault();
+
+                    const pathname = window.location.pathname;
+                    const pergunta_id = pathname.split('/')[2];
+
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    const resposta = document.getElementById("resposta").value;
+
+                    const dadosFormulario = {
+                        nome: nome,
+                        email: email,
+                        resposta: resposta,
+                        pergunta_id: pergunta_id
+                    };
+
+                    try {
+                        const response = await fetch('/responder', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dadosFormulario)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Erro na requisição');
+                        }
+
+                        const data = await response.json();
+
+                        window.location.href = `/pergunta/${pergunta_id}`;
+                    } catch (error) {
+                        console.error('Erro:', error);
+                    }
+                }
+            </script>
+</body>
+
+</html>

@@ -1,31 +1,32 @@
+<div class="container">
+    <dialog id="loginModal">
+        <div class="borda-azul">
+            <button class="close-button-login" id="closeModalButtonLogin">X</button>
+        </div>
+        <div class="modal-content">
 
-    <div class="container">
-        <!-- <button id="openModalButton">Abrir Login</button> -->
-        <dialog id="loginModal">
-            <div class="borda-azul">
-                <button class="close-button-login" id="closeModalButtonLogin">X</button>
+            <div class="modal-header">
+                <h3>SIGAA</h3>
+                <h4>(Acadêmico)</h4>
             </div>
-            <div class="modal-content">
-                
-                <div class="modal-header">
-                    <h3>SIGAA</h3>
-                    <h4>(Acadêmico)</h4>
+            <form class="form-login" id="formLogin" onsubmit="getDadosLogin(event)">
+                <div class="form-infor">
+                    <label>Nome</label>
+                    <input id="nome-usuario" type="text" name="nome" class="obrigatorio"
+                        placeholder="Informe o seu nome">
                 </div>
-                <form class="form-login" id="formLogin" method="post" action="/validarLogin">
-                    <div class="form-infor">
-                        <label>Usuário</label>
-                        <input type="text" name="usuario" class="obrigatorio">    
-                    </div>
-                    <div class="form-infor">
-                        <label>Senha</label>
-                        <input type="password" name="senha"  class="obrigatorio">    
-                    </div>
-                    <button class="close-button-login" type="submit">Entrar</button>
-                </form>
-                <div class="modal-footer">
-                    <a href="https://ead.virtual.ufc.br/index.php/guia/tutorias/">Clique aqui para acessar os tutoriais do SIGAA</a>
-                    <img class="logo-ufc" src="/assets/image3.png" alt="logo ufc">    
+                <div class="form-infor">
+                    <label>E-mail</label>
+                    <input id="email-usuario" type="email" name="email" class="obrigatorio"
+                        placeholder="Informe o seu e-mail">
                 </div>
+                <button class="close-button-login" type="submit">Entrar</button>
+            </form>
+            <div class="modal-footer">
+                <a href="https://ead.virtual.ufc.br/index.php/guia/tutorias/">Clique aqui para acessar os tutoriais do
+                    SIGAA</a>
+                <img class="logo-ufc" src="/assets/image3.png" alt="logo ufc">
             </div>
-        </dialog>
-    </div>
+        </div>
+    </dialog>
+</div>
