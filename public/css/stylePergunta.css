@@ -3,11 +3,14 @@
 #sem-pergunta,
 #sem-resposta {
     height: 30vh;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #f4f4f4;
+    padding: 40px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
 }
 
 #sem-resposta {
@@ -121,6 +124,10 @@
     display: flex;
     flex-direction: column;
     gap: 40px;
+    background-color: #f4f4f4;
+    padding: 40px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
 }
 
 #pergunta-container #content .resposta-container {

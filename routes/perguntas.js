@@ -3,9 +3,8 @@ const router = express.Router();
 const {Pergunta, Resposta} = require('../database/models/PerguntasRespostas');
 const Usuario = require('../database/models/Usuario');
 
-router.post("/validarlogin",(req,res)=>{
-    //var user = req.body.usuario;
-    //var senha = req.body.senha;
+router.get("/", (req, res) => {
+  res.redirect("/perguntas");
 });
 
 router.post("/perguntar", async (req, res) => {
@@ -158,7 +157,6 @@ router.get("/pergunta/:id", async (req, res) => {
             {
               model: Usuario,
               as: 'usuarios', // Alias da associação com Usuario
-              attributes: ['nome'] // Selecionando apenas o campo nome do usuário
             }
           ]
         }

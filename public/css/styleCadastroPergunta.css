@@ -1,4 +1,4 @@
-#PerguntaModal,
+#pergunta-modal,
 #RespostaModal {
     background-color: #F0F0F0;
     padding: 30px;
@@ -7,7 +7,7 @@
     overflow: hidden;
 }
 
-#PerguntaModal {
+#pergunta-modal {
     max-height: 400px;
 }
 
@@ -15,14 +15,14 @@
     max-height: 350px;
 }
 
-#PerguntaModal .modal-content,
+#pergunta-modal .modal-content,
 #RespostaModal .modal-content {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-#PerguntaModal .modal-header,
+#pergunta-modal .modal-header,
 #RespostaModal .modal-header {
     display: flex;
     align-items: center;
@@ -30,13 +30,13 @@
     margin: 0;
 }
 
-#PerguntaModal h3,
+#pergunta-modal h3,
 #RespostaModal h3 {
     color: #1C3A84;
     font-size: 24px;
 }
 
-#PerguntaModal #closeModalButton,
+#pergunta-modal #closeModalButton,
 #RespostaModal #closeModalButtonResposta {
     cursor: pointer;
     font-size: 24px;
