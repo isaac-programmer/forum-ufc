@@ -105,20 +105,14 @@ router.post("/votar", async (req, res) => {
 });
 
 router.get("/perguntas", async (req, res) => {
-  const { categoria, ordem } = req.query;
+  const { categoria } = req.query;
 
   // Configurações para a consulta
   let whereClause = {};
-  let orderClause = [];
 
   // Adiciona condição ao whereClause se categoria for fornecida
   if (categoria) {
     whereClause.categoria = categoria;
-  }
-
-  // Adiciona condição ao orderClause se ordem for fornecida
-  if (ordem) {
-    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes'
   }
 
   try {
@@ -129,7 +123,6 @@ router.get("/perguntas", async (req, res) => {
         {
           model: Resposta,
           as: 'respostas',
-          order: orderClause.length ? orderClause : [['likes', 'DESC']] // Se ordem for fornecida, use-a; caso contrário, ordene por 'likes' em ordem descendente
         }
       ]
     });
@@ -146,11 +139,11 @@ router.get("/pergunta/:id", async (req, res) => {
   const { ordem } = req.query;
 
   // Configurações para a consulta
-  let orderClause = [];
+  let orderClause = [['likes', 'DESC']]; // Ordem padrão
 
   // Adiciona condição ao orderClause se ordem for fornecida
   if (ordem) {
-    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes'
+    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes' de acordo com o valor de ordem (ASC ou DESC)
   }
 
   try {
@@ -161,12 +154,21 @@ router.get("/pergunta/:id", async (req, res) => {
         {
           model: Resposta,
           as: 'respostas',
-          order: orderClause.length ? orderClause : [['likes', 'DESC']] // Se ordem for fornecida, use-a; caso contrário, ordene por 'likes' em ordem descendente
+          include: [
+            {
+              model: Usuario,
+              as: 'usuarios', // Alias da associação com Usuario
+              attributes: ['nome'] // Selecionando apenas o campo nome do usuário
+            }
+          ]
         }
-      ]
+      ],
+      order: [
+        [{ model: Resposta, as: 'respostas' }, 'likes', orderClause[0][1]]
+      ] // Ordena as respostas por 'likes' de acordo com o valor de orderClause
     });
 
-    res.render("pergunta", {pergunta, pergunta});
+    res.render("pergunta", { pergunta });
   } catch (error) {
     console.error(`Erro ao buscar pergunta ${id}:`, error);
     res.status(500).json({ error: `Erro ao buscar pergunta ${id}` });
