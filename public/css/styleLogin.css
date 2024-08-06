@@ -1,45 +1,39 @@
-
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-#loginModal{
-   background-color: #F0F0F0;
-   padding-left: 0;
-   padding-right: 0;
-   border-style: none;
-   width: 30%;
-   border-radius: 0%;
+#loginModal {
+    background-color: #F0F0F0;
+    padding-left: 0;
+    padding-right: 0;
+    border-style: none;
+    width: 474px;
+    border-radius: 0px;
 }
 
 #loginModal .modal-header {
-    margin-top:30px;
+    margin-top: 30px;
     text-align: center;
     margin-bottom: 30px;
-
 }
 
 #loginModal .modal-content {
     padding: 20px;
     border: none;
-    width:474px;
+    width: 474px;
     height: 450px;
-    top:254px;
-    left:483px;
+    top: 254px;
+    left: 483px;
 }
 
-#loginModal .modal-header h3, .modal-header h4 {
+#loginModal .modal-header h3,
+.modal-header h4 {
     margin: 0;
 }
 
 #loginModal .modal-header h3 {
     color: #1C3A84;
-    font-size:24px;
+    font-size: 24px;
 }
 
 #loginModal .modal-header h4 {
-    font-size:18px;
-
+    font-size: 18px;
 }
 
 #loginModal .close-button-login {
@@ -47,7 +41,7 @@ dialog::backdrop {
     border: none;
     background: none;
     font-size: 1.5em;
-    width:57px;
+    width: 57px;
     height: 36px;
     background-color: #fff;
     border-radius: 0%;
@@ -55,10 +49,10 @@ dialog::backdrop {
 
 #loginModal .borda-azul {
     background-color: #1C3A84;
-    width:100%;
-    height:36px;
-    position:absolute;
-    top:0;
+    width: 100%;
+    height: 36px;
+    position: absolute;
+    top: 0;
     display: flex;
     justify-content: end;
 }
@@ -66,19 +60,19 @@ dialog::backdrop {
 #loginModal .form-login {
     display: flex;
     flex-direction: column;
-    align-items:center;
+    align-items: center;
 }
 
 #loginModal .form-infor {
     display: flex;
     flex-direction: column;
-
 }
 
 #loginModal .form-login input {
-    width:333px;
+    width: 333px;
     height: 32px;
     margin-bottom: 15px;
+    padding: 5px;
     border-style: none;
     background-color: #D9D9D9;
     border-radius: 4px;
@@ -87,19 +81,19 @@ dialog::backdrop {
 #loginModal .form-login label {
     font-weight: 400;
     font-size: 18px;
-    text-align: left; /* Alinha os rótulos à esquerda */
+    text-align: left;
 }
 
 #loginModal .form-login button {
     cursor: pointer;
     background-color: #214CCE;
     margin-top: 15px;
-    width:338px;
+    width: 338px;
     height: 38px;
-    border-style:none;
+    border-style: none;
     border-radius: 4px;
     color: #fff;
-    font-size:18px;
+    font-size: 18px;
     font-weight: 600;
 }
 
@@ -108,7 +102,7 @@ dialog::backdrop {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-} 
+}
 
 #loginModal .modal-footer a {
     font-size: 12px;
@@ -117,13 +111,11 @@ dialog::backdrop {
 #loginModal .modal-footer a:link {
     color: #000;
     text-decoration: none;
-    
 }
 
 #loginModal .modal-footer a:hover {
-    color:#214CCE;
+    color: #214CCE;
     text-decoration: none;
-    
 }
 
 #loginModal .logo-ufc {

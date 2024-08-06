@@ -22,6 +22,10 @@ main {
     padding: 40px;
 }
 
+textarea {
+    resize: none;
+}
+
 /* Dialog - Geral */
 dialog {
     margin: auto;
