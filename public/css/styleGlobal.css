@@ -1,10 +1,12 @@
 :root {
-    --border-color: #D9D9D9;
     --blue-primary: #1C3A84;
     --blue-light-text: #0000FF;
     --blue-button: #214CCE;
+    --yellow: #FDA600;
     --white: #FFFFFF;
     --black: #000000;
+    --gray-light: #F0F0F0;
+    --gray-medium: #D9D9D9;
 }
 
 * {
