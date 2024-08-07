@@ -60,14 +60,6 @@ Resposta.init({
     allowNull: true,
     field: 'usuario_id'
   },
-  likes: {
-    type: DataTypes.INTEGER,
-    allowNull: true
-  },
-  dislikes: {
-    type: DataTypes.INTEGER,
-    allowNull: true
-  },
   data_criacao: {
     type: DataTypes.DATE,
     allowNull: false,
@@ -101,7 +93,45 @@ Pergunta.belongsTo(Usuario, {
   as: 'usuarios'
 });
 
+class Like extends Model {}
+Like.init({
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  usuario_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Usuario,
+      key: 'id'
+    }
+  },
+  resposta_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: Resposta,
+      key: 'id'
+    }
+  },
+  tipo: {
+    type: DataTypes.ENUM('like', 'dislike'),
+    allowNull: false
+  }
+}, {
+  sequelize,
+  modelName: 'Like',
+  tableName: 'likes',
+  timestamps: false
+});
+
+Resposta.hasMany(Like, { foreignKey: 'resposta_id', as: 'userInteractions' });
+Usuario.hasMany(Like, { foreignKey: 'usuario_id', as: 'userLikes' });
+
 module.exports = {
   Pergunta,
-  Resposta
+  Resposta,
+  Like
 };
