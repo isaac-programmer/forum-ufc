@@ -27,7 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0;
+    margin-bottom: 20px;
 }
 
 #pergunta-modal h3,
@@ -45,16 +45,6 @@
     width: 24px;
     height: 24px;
     background-color: transparent;
-}
-
-.user-infor {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.user-infor img {
-    display: block;
 }
 
 .user-nome {
