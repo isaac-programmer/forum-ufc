@@ -1,56 +1,43 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-}
-
-
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-#PerguntaModal,
+#pergunta-modal,
 #RespostaModal {
-   background-color: #F0F0F0;
-   padding:30px;
-   border-style: none;
-   width:70%;
-   overflow: hidden;
-
+    background-color: #F0F0F0;
+    padding: 30px;
+    border-style: none;
+    width: 70%;
+    overflow: hidden;
 }
 
-#PerguntaModal{
-    max-height:400px;
-
+#pergunta-modal {
+    max-height: 400px;
 }
 
-#RespostaModal{
-    max-height:350px;
+#RespostaModal {
+    max-height: 350px;
 }
 
-#PerguntaModal .modal-content,#RespostaModal .modal-content {
+#pergunta-modal .modal-content,
+#RespostaModal .modal-content {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-#PerguntaModal .modal-header, #RespostaModal  .modal-header {
+#pergunta-modal .modal-header,
+#RespostaModal .modal-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin:0;
-}
-#PerguntaModal h3,#RespostaModal h3{
-    color: #1C3A84;
-    font-size:24px;
+    margin-bottom: 20px;
 }
 
-#PerguntaModal #closeModalButton, #RespostaModal #closeModalButtonResposta{
+#pergunta-modal h3,
+#RespostaModal h3 {
+    color: #1C3A84;
+    font-size: 24px;
+}
+
+#pergunta-modal #closeModalButton,
+#RespostaModal #closeModalButtonResposta {
     cursor: pointer;
     font-size: 24px;
     border: none;
@@ -60,29 +47,19 @@ dialog::backdrop {
     background-color: transparent;
 }
 
-.user-infor{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.user-infor img{
-    display: block;
-}
-
-.user-nome{
-    font-size:14px;
+.user-nome {
+    font-size: 14px;
     font-weight: 700;
 }
 
-.user-curso{
-    font-size:12px;
+.user-curso {
+    font-size: 12px;
     font-weight: 400;
     color: #222222;
 }
 
-.box{
-    width: 1000px;
+.box {
+    width: 100%;
     height: 121px;
     border-width: 1px;
     border-style: solid;
@@ -91,46 +68,47 @@ dialog::backdrop {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding:0;
+    padding: 0;
 }
 
-.campo-resposta{
-    width:100%;
-    height:100%;
-    background-color: #F0F0F0;
-
-}
-
-.box input,.box .campo-descricao{
+.campo-resposta {
+    width: 100%;
+    height: 100%;
     background-color: #F0F0F0;
 }
 
-.box .campo-titulo{
+.box input,
+.box .campo-descricao {
+    background-color: #F0F0F0;
+}
+
+.box .campo-titulo {
     border: none;
     border-bottom: 1px solid #222222;
-    width: 990px;
-    height:50px;
+    width: 100%;
+    height: 50px;
+    padding: 5px;
 }
 
-.box .form-infor{
+.box .form-infor {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.box textarea{
+.box textarea {
     border: none;
     padding: 5px;
 }
 
-.box .campo-descricao{
-    width: 990px;
-    height:50px;
+.box .campo-descricao {
+    width: 100%;
+    height: 50px;
     padding: 5px;
 }
 
-#categoria{
+#categoria {
     cursor: pointer;
     margin-top: 16px;
     padding: 8px;
@@ -139,11 +117,11 @@ dialog::backdrop {
     border-style: solid;
 }
 
-.buttons-finais{
+.buttons-finais {
     margin-top: 16px;
 }
 
-.button-publicar{
+.button-publicar {
     cursor: pointer;
     color: #fff;
     background-color: #214CCE;
@@ -152,17 +130,17 @@ dialog::backdrop {
     border-style: solid;
 }
 
-.button-publicar:hover{
-    background-color: #1C3A84 ;
+.button-publicar:hover {
+    background-color: #1C3A84;
 }
 
-.button-cancelar{
+.button-cancelar {
     cursor: pointer;
     background: none;
     color: #1C3A84;
     border: none;
 }
 
-.button-cancelar:hover{
+.button-cancelar:hover {
     color: #000000;
 }

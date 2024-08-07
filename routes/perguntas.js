@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {Pergunta, Resposta} = require('../database/models/PerguntasRespostas');
+const {Pergunta, Resposta, Like} = require('../database/models/PerguntasRespostas');
 const Usuario = require('../database/models/Usuario');
+const sequelize = require('../database/db');
 
-router.post("/validarlogin",(req,res)=>{
-    //var user = req.body.usuario;
-    //var senha = req.body.senha;
+router.get("/", (req, res) => {
+  res.redirect("/perguntas");
 });
 
 router.post("/perguntar", async (req, res) => {
@@ -81,44 +81,50 @@ router.post("/votar", async (req, res) => {
   if (!nome || !email) {
     return res.status(400).json({ error: 'Nome e e-mail são obrigatórios para criar um novo usuário.' });
   }
-  // Salva o Usuário
-  await Usuario.create({ nome, email });
-  
-  const resposta = await Resposta.findByPk(resposta_id);
 
-  // Faz o voto
-  if (!resposta) {
-    return res.status(404).json({ error: 'Resposta não encontrada.' });
-  } else {
-    if (voto === 'like') {
-      resposta.likes += 1;
-    } else if (voto === 'dislike') {
-      resposta.dislikes += 1;
-    } else {
-      return res.status(400).json({ error: 'Voto inválido.' });
+  try {
+    // Verifica se o usuário já existe
+    let usuario = await Usuario.findOne({ where: { email } });
+    if (!usuario) {
+      // Cria o usuário se não existir
+      usuario = await Usuario.create({ nome, email });
     }
 
-    await resposta.save();
-    res.json(resposta);
-  }
+    const resposta = await Resposta.findByPk(resposta_id);
 
+    // Verifica se a resposta existe
+    if (!resposta) {
+      return res.status(404).json({ error: 'Resposta não encontrada.' });
+    }
+
+    // Cria ou atualiza o voto na tabela Likes
+    const [like, created] = await Like.findOrCreate({
+      where: { usuario_id: usuario.id, resposta_id },
+      defaults: { tipo: voto }
+    });
+
+    if (!created) {
+      // Se o voto já existir, atualiza o tipo de voto
+      like.tipo = voto;
+      await like.save();
+    }
+
+    res.json({ message: 'Voto registrado com sucesso.', like });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao processar o voto.' });
+  }
 });
 
 router.get("/perguntas", async (req, res) => {
-  const { categoria, ordem } = req.query;
+  const { categoria } = req.query;
 
   // Configurações para a consulta
   let whereClause = {};
-  let orderClause = [];
 
   // Adiciona condição ao whereClause se categoria for fornecida
   if (categoria) {
     whereClause.categoria = categoria;
-  }
-
-  // Adiciona condição ao orderClause se ordem for fornecida
-  if (ordem) {
-    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes'
   }
 
   try {
@@ -129,7 +135,6 @@ router.get("/perguntas", async (req, res) => {
         {
           model: Resposta,
           as: 'respostas',
-          order: orderClause.length ? orderClause : [['likes', 'DESC']] // Se ordem for fornecida, use-a; caso contrário, ordene por 'likes' em ordem descendente
         }
       ]
     });
@@ -145,28 +150,68 @@ router.get("/pergunta/:id", async (req, res) => {
   const id = req.params.id;
   const { ordem } = req.query;
 
-  // Configurações para a consulta
-  let orderClause = [];
-
-  // Adiciona condição ao orderClause se ordem for fornecida
-  if (ordem) {
-    orderClause = [['likes', ordem]]; // Ordena as respostas pela coluna 'likes'
-  }
-
   try {
-    // Buscar perguntas com condições dinâmicas
-    const pergunta = await Pergunta.findOne({
+    // Define a ordenação com base no parâmetro 'ordem', padrão é DESC
+    const order = ordem === 'ASC' ? 1 : -1;  // ASC: crescente, DESC: decrescente
+
+    const perguntas = await Pergunta.findOne({
       where: { id: id },
       include: [
         {
           model: Resposta,
           as: 'respostas',
-          order: orderClause.length ? orderClause : [['likes', 'DESC']] // Se ordem for fornecida, use-a; caso contrário, ordene por 'likes' em ordem descendente
+          include: [
+            {
+              model: Usuario,
+              as: 'usuarios',
+            }
+          ],
+          attributes: {
+            include: [
+              [
+                sequelize.literal(`(
+                  SELECT COUNT(*) FROM likes
+                  WHERE likes.resposta_id = respostas.id
+                  AND likes.tipo = 'like'
+                )`),
+                'likes'
+              ],
+              [
+                sequelize.literal(`(
+                  SELECT COUNT(*) FROM likes
+                  WHERE likes.resposta_id = respostas.id
+                  AND likes.tipo = 'dislike'
+                )`),
+                'dislikes'
+              ]
+            ]
+          },
         }
-      ]
+      ],
     });
 
-    res.render("pergunta", {pergunta, pergunta});
+    const pergunta = {
+      id: perguntas.dataValues.id,
+      pergunta: perguntas.dataValues.pergunta,
+      usuario_id: perguntas.dataValues.usuario_id,
+      categoria: perguntas.dataValues.categoria,
+      descricao: perguntas.dataValues.descricao,
+      data_criacao: perguntas.dataValues.data_criacao,
+      respostas: perguntas.dataValues.respostas
+        .map(resposta => ({
+          id: resposta.dataValues.id,
+          resposta: resposta.dataValues.resposta,
+          likes: resposta.dataValues.likes || 0,
+          dislikes: resposta.dataValues.dislikes || 0,
+          usuarios: {
+            nome: resposta.dataValues.usuarios.nome,
+            email: resposta.dataValues.usuarios.email
+          }
+        }))
+        .sort((a, b) => (a.likes - b.likes) * order)  // Ordena pelas respostas
+    };
+
+    res.render("pergunta", { pergunta });
   } catch (error) {
     console.error(`Erro ao buscar pergunta ${id}:`, error);
     res.status(500).json({ error: `Erro ao buscar pergunta ${id}` });

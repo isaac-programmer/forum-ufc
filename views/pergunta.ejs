@@ -30,9 +30,10 @@
                                         </h1>
                                     </header>
 
-                                    <% if (pergunta.respostas && pergunta.respostas.length> 0) { %>
+                                    <% if (pergunta.respostas && pergunta.respostas.length > 0) { %>
                                         <section id="rank-votos">
-                                            <select id="rank-voto" name="rank_voto" onchange="ordenarRespostas(event, '<%- pergunta.id %>')">
+                                            <select id="rank-voto" name="rank_voto"
+                                                onchange="ordenarRespostas(event, '<%- pergunta.id %>')">
                                                 <option disabled selected><em>Escolha uma opção</em></option>
                                                 <option value="DESC">Mais votados</option>
                                                 <option value="ASC">Menos votados</option>
@@ -45,8 +46,12 @@
                                                     <div class="header">
                                                         <img src="/assets/user.svg" width="50" height="60">
                                                         <div>
-                                                            <p class="user-nome">Thiago Iashiley</p>
-                                                            <p class="user-curso">Engenharia de Computação</p>
+                                                            <p class="user-nome">
+                                                                <%= resposta.usuarios.nome %>
+                                                                    <p>
+                                                                    <p class="user-curso">
+                                                                        <%= resposta.usuarios.email %>
+                                                                    </p>
                                                         </div>
                                                     </div>
                                                     <p class="resposta">
@@ -55,14 +60,14 @@
                                                     <div class="votos">
                                                         <div class="likes">
                                                             <img src="/assets/like.svg" width="19" height="19"
-                                                                onclick="postVotar(event,'like', '<%= resposta.id %>')">
+                                                                onclick="postVotar(event,'like','<%= resposta.id %>')">
                                                             <span class="numero-likes">
                                                                 <%= resposta.likes %>
                                                             </span>
                                                         </div>
                                                         <div class="deslikes">
                                                             <img src="/assets/deslike.svg" width="19" height="19"
-                                                                onclick="postVotar(event,'dislike', '<%= resposta.id %>')">
+                                                                onclick="postVotar(event,'dislike','<%= resposta.id %>')">
                                                             <span class="numero-deslikes">
                                                                 <%= resposta.dislikes %>
                                                             </span>
@@ -75,10 +80,10 @@
                                             <section id="sem-resposta">
                                                 <p>Nenhuma resposta encontrada!</p>
                                             </section>
-                                            <% } %>
-                                                <footer>
-                                                    <button id="adicionarResposta">Adicionar resposta</button>
-                                                </footer>
+                                        <% } %>
+                                        <footer>
+                                            <button id="adicionarResposta">Adicionar resposta</button>
+                                        </footer>
                                 </section>
                             </section>
                             <% } else { %>
@@ -87,11 +92,14 @@
                                 </section>
                                 <% } %>
             </main>
-            <script>
-                let logado = false;
-                sessionStorage.clear();
 
+            <script>
+                // Função executada quando a página está totalmente carregada
                 (function () {
+                    if (!sessionStorage.getItem("logado")) {
+                        sessionStorage.setItem("logado", "false");
+                    }
+
                     var cardPergunta = document.querySelector(".card-pergunta");
                     var botaoCancelar = document.getElementById("fechar");
                     var dialogPergunta = document.getElementById("dialogPergunta");
@@ -106,38 +114,29 @@
                     });
                 })();
 
-                //---constantes modal formulário login----------
+                // Constantes - Modal formulário login
                 const closeModalButtonsLogin = document.querySelectorAll('.close-button-login');
                 const loginModal = document.getElementById('loginModal');
-                const respostaFormLogin = document.getElementById('formLogin')
+                const respostaFormLogin = document.getElementById('formLogin');
 
-                //-----constantes modal formulário pergunta----------
+                // Constantes - Modal formulário pergunta 
                 const openModalButtonPergunta = document.getElementById('openModalButtonPergunta');
                 const closeModalButtons = document.querySelectorAll('.close-buttons');
-                const PerguntaModal = document.getElementById('PerguntaModal');
-                const respostaFormPergunta = document.getElementById('formPergunta')
+                const PerguntaModal = document.getElementById('pergunta-modal');
+                const respostaFormPergunta = document.getElementById('formPergunta');
 
-                //-----constantes modal formulário resposta----------
+                // Constantes - Modal formulário resposta 
                 const openModalButtonResposta = document.getElementById('adicionarResposta');
                 const closeModalButtonsResposta = document.querySelectorAll('.close-buttons');
                 const RespostaModal = document.getElementById('RespostaModal');
-                const respostaFormResposta = document.getElementById('formResposta')
+                const respostaFormResposta = document.getElementById('formResposta');
 
-                // Função para redefinir o formulário(apaga os dados sempre que fechar o forms)
+                // Função para redefinir o formulário (apaga os dados sempre que fechar o forms)
                 function resetForm(modal) {
                     const form = modal.querySelector('form');
+
                     if (form) {
                         form.reset();
-                    }
-                }
-
-                // Função que verifica se o usuário está logado
-                function verificarLogin() {
-                    const nome = sessionStorage.getItem("nome_usuario");
-                    const email = sessionStorage.getItem("email_usuario");
-
-                    if (!logado && !nome && !email) {
-                        loginModal.showModal();
                     }
                 }
 
@@ -148,22 +147,56 @@
                     const nome = document.getElementById("nome-usuario").value || "Isaac";
                     const email = document.getElementById("email-usuario").value || "isaac@teste.com";
 
+                    sessionStorage.setItem("logado", "true");
                     sessionStorage.setItem("nome_usuario", nome);
                     sessionStorage.setItem("email_usuario", email);
+
+                    loginModal.close();
                 }
 
+                // Função que verifica se o usuário está logado
+                function verificarLogin() {
+                    const logado = sessionStorage.getItem("logado");
+                    const nome = sessionStorage.getItem("nome_usuario");
+                    const email = sessionStorage.getItem("email_usuario");
+
+                    if ((!logado || logado === "false") && !nome && !email) {
+                        loginModal.showModal();
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+
+                // Funções Modal - Formulário de Login
                 closeModalButtonsLogin.forEach(button => {
                     button.addEventListener('click', () => {
-                        logado = true;
+                        console.log("2");
                         loginModal.close();
-                        resetForm(loginModal);
-                    })
-                })
+                    });
+                });
+
+                // Funções Modal - Formulário de Pergunta
+                openModalButtonPergunta?.addEventListener('click', () => {
+                    const estaLogado = verificarLogin();
+
+                    if (estaLogado) {
+                        PerguntaModal.showModal();
+                    }
+                });
+
+                closeModalButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        PerguntaModal.close();
+                        resetForm(PerguntaModal);
+                    });
+                });
 
                 // Funções modal - Formulário de Resposta
                 openModalButtonResposta?.addEventListener('click', () => {
-                    verificarLogin();
-                    if (logado) {
+                    const estaLogado = verificarLogin();
+
+                    if (estaLogado) {
                         RespostaModal.showModal();
                     }
                 });
@@ -172,24 +205,8 @@
                     button.addEventListener('click', () => {
                         RespostaModal.close();
                         resetForm(RespostaModal);
-                    })
-                })
-
-                // Funções modal - Formulário de Pergunta
-                openModalButtonPergunta?.addEventListener('click', () => {
-                    if (logado == true) {
-                        PerguntaModal.showModal();
-                    } else {
-                        loginModal.showModal();
-                    }
+                    });
                 });
-
-                closeModalButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        PerguntaModal.close();
-                        resetForm(PerguntaModal);
-                    })
-                })
 
                 // Função - Ordenar respostas por likes
                 function ordenarRespostas(e, pergunta_id) {
@@ -198,47 +215,49 @@
                     window.location.href = `/pergunta/${pergunta_id}?ordem=${ordem}`;
                 }
 
-                // Função - Votar - Resposta
+                // Função - Votar
                 async function postVotar(e, voto, resposta_id) {
                     e.preventDefault();
 
-                    verificarLogin();
+                    const estaLogado = verificarLogin();
 
-                    const pathname = window.location.pathname;
-                    const pergunta_id = pathname.split('/')[2];
+                    if (estaLogado) {
+                        const pathname = window.location.pathname;
+                        const pergunta_id = pathname.split('/')[2];
 
-                    const nome = sessionStorage.getItem("nome_usuario");
-                    const email = sessionStorage.getItem("email_usuario");
+                        const nome = sessionStorage.getItem("nome_usuario");
+                        const email = sessionStorage.getItem("email_usuario");
 
-                    const dados = {
-                        nome: nome,
-                        email: email,
-                        voto: voto,
-                        resposta_id: resposta_id,
-                    };
+                        const dados = {
+                            nome: nome,
+                            email: email,
+                            voto: voto,
+                            resposta_id: resposta_id,
+                        };
 
-                    try {
-                        const response = await fetch('/votar', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(dados)
-                        });
+                        try {
+                            const response = await fetch('/votar', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(dados)
+                            });
 
-                        if (!response.ok) {
-                            throw new Error('Erro na requisição');
+                            if (!response.ok) {
+                                throw new Error('Erro na requisição');
+                            }
+
+                            const data = await response.json();
+
+                            window.location.href = `/pergunta/${pergunta_id}`;
+                        } catch (error) {
+                            console.error('Erro:', error);
                         }
-
-                        const data = await response.json();
-
-                        window.location.href = `/pergunta/${pergunta_id}`;
-                    } catch (error) {
-                        console.error('Erro:', error);
                     }
                 }
 
-                // Funções - Cadastrar - Pergunta/Resposta
+                // Função - Cadastrar Pergunta
                 async function postPergunta(e) {
                     e.preventDefault();
 
@@ -278,6 +297,7 @@
                     }
                 }
 
+                // Função - Cadastrar Resposta
                 async function postResposta(e) {
                     e.preventDefault();
 
